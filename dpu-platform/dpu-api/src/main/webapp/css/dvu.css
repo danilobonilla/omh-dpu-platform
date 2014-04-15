@@ -1,0 +1,65 @@
+body{
+    font-family: tahoma;    
+}
+
+body form div{
+    text-align: right;
+}
+
+body form{
+    border: 1px solid #ccc;
+    background-color: #eee;
+    border-radius: 5px;
+    padding: 15px;
+    padding-right: 170px;
+}
+
+.bar {
+    fill: steelblue;
+}
+
+.bar:hover {
+    fill: brown;
+}
+
+.axis {
+    font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.x.axis path {
+    display: none;
+}
+
+#journal{
+    /*border: 1px solid red;*/
+    width: 29%;
+    float: left;
+}
+
+#graph{
+    /*border: 1px solid blue;*/
+    width: 70%;
+    float: right;
+}
+
+.activityBox{
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 15px;
+}
+
+.activityBox a:visited,
+.activityBox a:active,
+.activityBox a{
+    color: red;
+    font-size: 12px;
+    margin-left: 15px;
+}

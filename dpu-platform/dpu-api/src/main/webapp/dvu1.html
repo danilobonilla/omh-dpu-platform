@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <title>Daily Moderate Activity</title>
+    <link rel="stylesheet" type="text/css" href="css/dvu.css"/>
+
+    <!-- External imports -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+
+    <!-- Local imports -->
+    <script src="js/omh-dpu.js"></script>
+    <script src="js/omh-dvu.js"></script>
+    <script src="js/fitness-journal.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+
+            var ActivityEntry = Backbone.Model.extend({
+                defaults: {
+                    activityName: "",
+                    startTime: 0,
+                    endTime: 0
+                },
+
+                getPrettyTime: function () {
+                    var model = this;
+                    var startDate = new Date(model.get("startTime"));
+                    var endDate = new Date(model.get("endTime"));
+
+                    var monthDay = startDate.getUTCDate();
+                    var month = startDate.getUTCMonth()+1;
+                    var year = startDate.getUTCFullYear();
+
+                    var dateLabel = month + "/" + monthDay + "/" + year;
+                    var startLabel = startDate.getHours() + ":" + startDate.getMinutes();
+                    var endLabel = endDate.getHours() + ":" + endDate.getMinutes();
+
+                    return dateLabel + "<br>From: " + startLabel + " To: " + endLabel;
+                }
+            });
+
+            var ActivityEntries =
+                    Backbone.Collection.extend({ model: ActivityEntry });
+
+            var activityEntries = new ActivityEntries();
+
+            new Omh.Dvu.ModerateActivityGraph({
+                activityEntries: activityEntries,
+                selector: "#graph"
+            });
+
+            var fitnessJournal = new FitnessJournal({
+                activityEntries: activityEntries
+            });
+            $("#journal").html(fitnessJournal.$el);
+
+            /*activityEntries.add([
+             {activityName: "running", startTime: 796872634826, endTime: 796877634826},
+             {activityName: "run", startTime: 796972634826, endTime: 796979634826},
+             {activityName: "walking", startTime: 796972634826, endTime: 796979634826},
+             {activityName: "run", startTime: 797979634826, endTime: 797989634826}
+             ]);*/
+        })
+    </script>
+</head>
+
+<body>
+
+<div id="journal">
+    <!-- Journal entries view will be loaded here -->
+</div>
+
+<div id="graph">
+    <!-- D3 graph will be loaded here -->
+</div>
+
+</body>
